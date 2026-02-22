@@ -1,0 +1,19 @@
+@import 'tailwindcss' source(none);
+@source '../**/*.{js,ts,jsx,tsx}';
+
+@import 'tw-animate-css';
+
+/* 
+  Global Primary Color Configuration
+  We are globally aliasing the hardcoded "blue" classes to a new color scale. 
+  To test a new color, simply change "emerald" to "violet", "rose", "amber", etc.
+*/
+@theme {
+    --color-blue-50: var(--color-amber-50);
+    --color-blue-100: var(--color-amber-100);
+    --color-blue-400: var(--color-amber-400);
+    --color-blue-500: var(--color-amber-500);
+    --color-blue-600: var(--color-amber-600);
+    --color-blue-700: var(--color-amber-700);
+    --color-blue-800: var(--color-amber-800);
+}
