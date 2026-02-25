@@ -1,19 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useMotionTemplate } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-
-const STATIC_PARTICLES = Array.from({ length: 30 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: Math.random() * 4 + 2,
-  delay: Math.random() * 2
-}));
+import { ThreeHeroBackground } from './ThreeHeroBackground';
 
 export function HeroWithCursor() {
   const [isInHero, setIsInHero] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: -1000, y: -1000 });
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
   // Use framer-motion values instead of React state to bypass re-renders on mousemove for heavy gradients
   const mouseX = useMotionValue(-1000);
@@ -55,9 +49,23 @@ export function HeroWithCursor() {
       const initialMy = rect.height / 2;
       mouseX.set(initialMx);
       mouseY.set(initialMy);
+
+      setContainerSize({ width: heroElement.offsetWidth, height: heroElement.offsetHeight });
     }
 
+    const handleResize = () => {
+      if (heroRef.current) {
+        setContainerSize({
+          width: heroRef.current.offsetWidth,
+          height: heroRef.current.offsetHeight,
+        });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
+      window.removeEventListener('resize', handleResize);
       if (heroElement) {
         heroElement.removeEventListener('mousemove', handleMouseMove);
         heroElement.removeEventListener('mouseenter', handleMouseEnter);
@@ -98,43 +106,8 @@ export function HeroWithCursor() {
         />
       </div>
 
-      {/* Floating particles that react to cursor */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {STATIC_PARTICLES.map((particle) => {
-          const distanceX = mousePosition.x - (particle.x / 100) * (heroRef.current?.offsetWidth || 0);
-          const distanceY = mousePosition.y - (particle.y / 100) * (heroRef.current?.offsetHeight || 0);
-          const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-          const maxDistance = 300;
-          const force = Math.max(0, (maxDistance - distance) / maxDistance);
-
-          const offsetX = isInHero ? (distanceX / distance) * force * -50 : 0;
-          const offsetY = isInHero ? (distanceY / distance) * force * -50 : 0;
-
-          return (
-            <motion.div
-              key={particle.id}
-              className="absolute rounded-full bg-blue-600"
-              initial={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
-                width: particle.size,
-                height: particle.size,
-              }}
-              animate={{
-                x: offsetX,
-                y: offsetY,
-                opacity: isInHero ? 0.6 : 0.3,
-              }}
-              transition={{
-                type: "spring",
-                damping: 20,
-                stiffness: 100,
-                delay: particle.delay * 0.1
-              }}
-            />
-          );
-        })}
-      </div>
+      {/* 3D Particle Background */}
+      <ThreeHeroBackground mousePosition={mousePosition} containerSize={containerSize} />
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Column - Intro Text */}

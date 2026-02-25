@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { ThreeHeroShape } from '../components/ThreeHeroShape';
 
 // Reusing the same project data to simulate a full portfolio list
 const PROJECTS = [
@@ -57,11 +58,16 @@ export function ProjectsPage() {
     return (
         <main className="pt-32 pb-24 px-6 lg:px-12 bg-white dark:bg-[#030213] min-h-screen">
             <div className="max-w-7xl mx-auto">
-                <header className="mb-16">
-                    <h1 className="text-5xl md:text-6xl font-bold text-black dark:text-white mb-6">Archive <span className="text-gray-400">/</span> Projects</h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
-                        A collection of my recent work, featuring full-stack applications, interactive dashboards, and scalable web solutions.
-                    </p>
+                <header className="mb-16 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="flex-1">
+                        <h1 className="text-5xl md:text-6xl font-bold text-black dark:text-white mb-6">Archive <span className="text-gray-400">/</span> Projects</h1>
+                        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+                            A collection of my recent work, featuring full-stack applications, interactive dashboards, and scalable web solutions.
+                        </p>
+                    </div>
+                    <div className="flex-1 w-full h-[300px] md:h-[400px]">
+                        <ThreeHeroShape />
+                    </div>
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
