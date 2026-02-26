@@ -108,7 +108,7 @@ function Particles() {
 
 export function ThreeSkillsCloud() {
     return (
-        <div className="w-full h-[400px] md:h-[500px] lg:h-[600px] relative cursor-pointer">
+        <div className="w-full h-[300px] md:h-[500px] lg:h-[600px] relative pointer-events-none lg:pointer-events-auto lg:cursor-pointer">
             <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[10, 10, 10]} intensity={1.5} />

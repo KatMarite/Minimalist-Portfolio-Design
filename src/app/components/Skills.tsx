@@ -58,7 +58,7 @@ export function Skills() {
                     </div>
 
                     {/* 3D Skills Tag Cloud */}
-                    <div className="w-full h-full flex items-center justify-center">
+                    <div className="hidden lg:flex w-full h-full items-center justify-center">
                         <ThreeSkillsCloud />
                     </div>
                 </div>
