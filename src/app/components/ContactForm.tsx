@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export function ContactForm() {
@@ -55,11 +55,10 @@ export function ContactForm() {
                     Get In Touch
                 </motion.h2>
 
-                <div className="grid lg:grid-cols-2 gap-10 items-start">
-                    {/* Left - Contact Form */}
+                <div className="max-w-3xl mx-auto">
                     <motion.form
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                         viewport={{ once: true }}
                         onSubmit={handleSubmit}
@@ -158,48 +157,6 @@ export function ContactForm() {
                             </motion.button>
                         </div>
                     </motion.form>
-
-                    {/* Right - Contact Info Cards */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        viewport={{ once: true }}
-                        className="flex flex-col gap-6"
-                    >
-                        {/* Email Card */}
-                        <a href="mailto:katlehomarite@gmail.com" className="bg-white dark:bg-gray-900 p-6 rounded-[1.5rem] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex items-center gap-5 group">
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform">
-                                <Mail size={24} className="text-white" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-blue-600 font-medium mb-0.5">Email</p>
-                                <p className="text-lg font-bold text-black dark:text-white">katlehomarite@gmail.com</p>
-                            </div>
-                        </a>
-
-                        {/* Phone Card */}
-                        <a href="tel:+27833744926" className="bg-white dark:bg-gray-900 p-6 rounded-[1.5rem] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex items-center gap-5 group">
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform">
-                                <Phone size={24} className="text-white" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-blue-600 font-medium mb-0.5">Phone</p>
-                                <p className="text-lg font-bold text-black dark:text-white">+27 (833) 744-926</p>
-                            </div>
-                        </a>
-
-                        {/* Location Card */}
-                        <div className="bg-white dark:bg-gray-900 p-6 rounded-[1.5rem] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex items-center gap-5 group">
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform">
-                                <MapPin size={24} className="text-white" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-blue-600 font-medium mb-0.5">Location</p>
-                                <p className="text-lg font-bold text-black dark:text-white">Pretoria, South Africa</p>
-                            </div>
-                        </div>
-                    </motion.div>
                 </div>
             </div>
         </section>
