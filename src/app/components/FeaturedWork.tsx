@@ -138,6 +138,116 @@ export function FeaturedWork() {
                             </div>
                         </div>
                     </motion.div>
+
+                    {/* Projects 5, 6, 7 & 8 - Four New Projects Grid */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="grid md:grid-cols-2 gap-6"
+                    >
+                        {/* Engagemint Labs */}
+                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-800 group hover:-translate-y-1">
+                            <div className="relative overflow-hidden rounded-t-[2rem] h-56">
+                                <ImageWithFallback
+                                    src="/engagemint.jpg"
+                                    alt="Engagemint Labs"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                            <div className="p-6">
+                                <h3 className="text-xl font-bold text-black dark:text-white mb-2 group-hover:text-blue-600 transition-colors">Engagemint Labs</h3>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
+                                    A full-service digital agency combining technology, creativity, and strategy to develop innovative software solutions and digital marketing experiences that help brands connect, businesses evolve, and ideas become reality.
+                                </p>
+                                <div className="flex flex-wrap gap-1.5 mb-4">
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">Next.js</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">TypeScript</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">Framer Motion</span>
+                                </div>
+                                <a href="https://engagemint-labs.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1">
+                                    View Project <ArrowRight size={14} />
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Designed by Barbz */}
+                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-800 group hover:-translate-y-1">
+                            <div className="relative overflow-hidden rounded-t-[2rem] h-56">
+                                <ImageWithFallback
+                                    src="/barbz.jpg"
+                                    alt="Designed by Barbz"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                            <div className="p-6">
+                                <h3 className="text-xl font-bold text-black dark:text-white mb-2 group-hover:text-blue-600 transition-colors">Designed by Barbz</h3>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
+                                    A premium fashion e-commerce platform with a sleek UI/UX design. The store offers new arrivals, tops, bottoms, dresses, sets, and jackets, with a consultation booking feature — built around the philosophy that fashion is about the story you choose to tell.
+                                </p>
+                                <div className="flex flex-wrap gap-1.5 mb-4">
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">Shopify</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">UI/UX Design</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">E-Commerce</span>
+                                </div>
+                                <a href="https://designedbybarbz.co.za/" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1">
+                                    View Project <ArrowRight size={14} />
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Urban Pulse TBS App */}
+                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-800 group hover:-translate-y-1">
+                            <div className="relative overflow-hidden rounded-t-[2rem] h-56">
+                                <ImageWithFallback
+                                    src="/urbanpulse.jpg"
+                                    alt="Urban Pulse TBS App"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                            <div className="p-6">
+                                <h3 className="text-xl font-bold text-black dark:text-white mb-2 group-hover:text-blue-600 transition-colors">Urban Pulse — TBS App</h3>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
+                                    A next-gen transit app modernising daily commuting in Tshwane with seamless NFC payments, AI-driven route optimisation, and real-time fleet tracking — putting the future of public transport in commuters' hands.
+                                </p>
+                                <div className="flex flex-wrap gap-1.5 mb-4">
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">React</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">Cloudflare Workers</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">NFC</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">AI</span>
+                                </div>
+                                <a href="https://tbs-app.katlehomarite.workers.dev/" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1">
+                                    View Project <ArrowRight size={14} />
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Dr. Mavis Mazhura */}
+                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-800 group hover:-translate-y-1">
+                            <div className="relative overflow-hidden rounded-t-[2rem] h-56">
+                                <ImageWithFallback
+                                    src="/drmavis.jpg"
+                                    alt="Dr. Mavis Mazhura"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                            <div className="p-6">
+                                <h3 className="text-xl font-bold text-black dark:text-white mb-2 group-hover:text-blue-600 transition-colors">Dr. Mavis Mazhura</h3>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
+                                    A professional website for a Leadership Psychologist and Behavioural Science Expert. The platform showcases keynotes, books, media, and services focused on developing sustainable leadership — helping organisations shift from burnout to aligned, influential performance.
+                                </p>
+                                <div className="flex flex-wrap gap-1.5 mb-4">
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">Next.js</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">TypeScript</span>
+                                    <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">CMS</span>
+                                </div>
+                                <a href="https://www.drmavismazhura.co.za/" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1">
+                                    View Project <ArrowRight size={14} />
+                                </a>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
 
                 <div className="mt-16 flex justify-center">

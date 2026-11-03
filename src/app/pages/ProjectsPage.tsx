@@ -51,6 +51,38 @@ const PROJECTS = [
         tags: ["Next.js", "Mapbox", "Prisma", "Supabase", "Cloudinary"],
         image: "/saimmu.jpg",
         link: "https://saimmunology.org.za/"
+    },
+    {
+        id: 7,
+        title: "Engagemint Labs",
+        description: "A full-service digital agency combining technology, creativity, and strategy to develop innovative software solutions and digital marketing experiences that help brands connect, businesses evolve, and ideas become reality.",
+        tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+        image: "/engagemint.jpg",
+        link: "https://engagemint-labs.vercel.app/"
+    },
+    {
+        id: 8,
+        title: "Designed by Barbz",
+        description: "A premium fashion e-commerce platform with a sleek UI/UX design. The store offers new arrivals, tops, bottoms, dresses, sets, and jackets, with a consultation booking feature — built around the philosophy that fashion is about the story you choose to tell.",
+        tags: ["Shopify", "UI/UX Design", "E-Commerce", "Figma"],
+        image: "/barbz.jpg",
+        link: "https://designedbybarbz.co.za/"
+    },
+    {
+        id: 9,
+        title: "Urban Pulse — TBS App",
+        description: "A next-gen transit app modernising daily commuting in Tshwane with seamless NFC payments, AI-driven route optimisation, and real-time fleet tracking — putting the future of public transport in commuters' hands.",
+        tags: ["React", "TypeScript", "Cloudflare Workers", "NFC", "AI"],
+        image: "/urbanpulse.jpg",
+        link: "https://tbs-app.katlehomarite.workers.dev/"
+    },
+    {
+        id: 10,
+        title: "Dr. Mavis Mazhura",
+        description: "A professional website for a Leadership Psychologist and Behavioural Science Expert. The platform showcases keynotes, books, media, and services focused on developing sustainable leadership — helping organisations shift from burnout to aligned, influential performance.",
+        tags: ["Next.js", "TypeScript", "Tailwind CSS", "CMS"],
+        image: "/drmavis.jpg",
+        link: "https://www.drmavismazhura.co.za/"
     }
 ];
 
