@@ -7,7 +7,7 @@ import { ProjectsPage } from './pages/ProjectsPage';
 export default function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen bg-white font-['Inter',sans-serif] flex flex-col">
+      <div className="min-h-screen bg-[#fafafa] dark:bg-[#07080e] text-slate-900 dark:text-slate-100 font-['Plus_Jakarta_Sans','Inter',sans-serif] selection:bg-amber-500 selection:text-slate-950 flex flex-col transition-colors duration-300">
         <Header />
 
         {/* Main Content routing */}

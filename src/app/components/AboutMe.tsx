@@ -1,131 +1,208 @@
 import { motion } from 'motion/react';
-import { Rocket, Code2, Lightbulb, Users, Zap, Layout } from 'lucide-react';
+import { Rocket, Code2, Lightbulb, Users, Zap, Layout, MapPin, Clock, HeartHandshake, Shield, Sparkles } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export function AboutMe() {
-    return (
-        <section id="about" className="py-24 px-6 lg:px-12 bg-gray-50 dark:bg-[#0a0a1a]">
-            <div className="max-w-7xl mx-auto">
-                <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-16">About Me</h2>
+    const [currentTime, setCurrentTime] = useState("");
 
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            // Format for Johannesburg (GMT+2)
+            const timeString = now.toLocaleTimeString('en-US', {
+                timeZone: 'Africa/Johannesburg',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+            setCurrentTime(timeString);
+        };
+
+        updateTime();
+        const interval = setInterval(updateTime, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#fafafa] dark:bg-[#07080e] relative transition-colors duration-300">
+            <div className="max-w-6xl mx-auto">
+                
+                {/* Section Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                    <div>
+                        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono mb-2">
+                            <Sparkles size={14} />
+                            Background & Philosophy
+                        </div>
+                        <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+                            Crafting Digital Excellence
+                        </h2>
+                    </div>
+
+                    <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-md">
+                        Merging AI-driven problem solving with modern web craftsmanship to build products that delight users and drive real business outcomes.
+                    </p>
+                </div>
+
+                {/* Bento Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    {/* Left Column (5/12) */}
+                    
+                    {/* Left Column (5 cols) - Portrait & Live Location Bento */}
                     <div className="lg:col-span-5 flex flex-col gap-6">
-                        {/* Photo Card */}
+                        
+                        {/* Portrait Card */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
                             viewport={{ once: true }}
-                            className="bg-white dark:bg-gray-900 rounded-[2rem] p-4 shadow-sm border border-gray-100 dark:border-gray-800 flex-1 relative overflow-hidden group min-h-[400px]"
+                            className="p-3 rounded-3xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] shadow-sm overflow-hidden group relative min-h-[380px] flex flex-col"
                         >
-                            <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-gray-100">
+                            <div className="relative w-full h-[320px] rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900">
                                 <img
                                     src="/profile.jpg"
-                                    alt="Profile Portrait"
-                                    className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    alt="Katleho Marite"
+                                    className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 ease-out"
                                 />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
+                                    <div>
+                                        <h3 className="text-xl font-extrabold text-white">Katleho Marite</h3>
+                                        <p className="text-xs text-amber-300 font-medium">Frontend Engineer & Creative Technologist</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Location & Time bar */}
+                            <div className="p-3 mt-1 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                                <div className="flex items-center gap-1.5 font-medium">
+                                    <MapPin size={14} className="text-amber-500" />
+                                    <span>Johannesburg, SA</span>
+                                </div>
+                                <div className="flex items-center gap-1.5 font-mono">
+                                    <Clock size={14} className="text-slate-400" />
+                                    <span>{currentTime || 'Local Time'} (SAST)</span>
+                                </div>
                             </div>
                         </motion.div>
 
-                        {/* Stats Cards Row */}
-                        <div className="grid grid-cols-2 gap-6">
+                        {/* Quick Metrics Pair */}
+                        <div className="grid grid-cols-2 gap-4">
                             <motion.div
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
                                 viewport={{ once: true }}
-                                className="bg-white dark:bg-gray-900 rounded-[2rem] p-8 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center gap-3 hover:shadow-md transition-shadow"
+                                className="p-5 rounded-2xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] shadow-sm flex flex-col items-center justify-center text-center group hover:border-amber-500/40 transition-colors"
                             >
-                                <Rocket className="text-blue-600" size={28} />
-                                <div className="text-center">
-                                    <h4 className="text-3xl font-bold text-black dark:text-white mb-1">5+</h4>
-                                    <p className="text-sm text-gray-500 font-medium">Years Experience</p>
+                                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                    <Rocket size={20} />
                                 </div>
+                                <span className="text-2xl font-extrabold text-slate-950 dark:text-white font-mono">5+</span>
+                                <span className="text-xs text-slate-500 font-medium">Years Experience</span>
                             </motion.div>
+
                             <motion.div
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
                                 viewport={{ once: true }}
-                                className="bg-white dark:bg-gray-900 rounded-[2rem] p-8 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center gap-3 hover:shadow-md transition-shadow"
+                                className="p-5 rounded-2xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] shadow-sm flex flex-col items-center justify-center text-center group hover:border-amber-500/40 transition-colors"
                             >
-                                <Code2 className="text-blue-600" size={28} />
-                                <div className="text-center">
-                                    <h4 className="text-3xl font-bold text-black dark:text-white mb-1">50+</h4>
-                                    <p className="text-sm text-gray-500 font-medium">Projects Completed</p>
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                    <Code2 size={20} />
                                 </div>
+                                <span className="text-2xl font-extrabold text-slate-950 dark:text-white font-mono">50+</span>
+                                <span className="text-xs text-slate-500 font-medium">Projects Shipped</span>
                             </motion.div>
                         </div>
                     </div>
 
-                    {/* Right Column (7/12) */}
+                    {/* Right Column (7 cols) - Narrative & Value Pillars */}
                     <div className="lg:col-span-7 flex flex-col gap-6">
-                        {/* Big text card */}
+                        
+                        {/* Narrative Editorial Card */}
                         <motion.div
-                            initial={{ opacity: 0, x: 30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
                             viewport={{ once: true }}
-                            className="bg-white dark:bg-gray-900 rounded-[2rem] p-8 lg:p-12 shadow-sm border border-gray-100 dark:border-gray-800"
+                            className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] shadow-sm"
                         >
-                            <h3 className="text-3xl font-bold text-blue-600 mb-6">Crafting Digital Excellence</h3>
-                            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
-                                A passionate and results driven AI/ML enthusiast with a strong foundation in full-stack web development. I specialize in building <span className="text-blue-600 font-bold">data-driven applications</span> and models that <span className="text-green-600 font-bold">solve real-world problems.</span> My career objective is to leverage my skills in machine learning, Python, and modern web frameworks to contribute to innovative projects in a collaborative environment.
+                            <h3 className="text-2xl font-extrabold text-slate-950 dark:text-white mb-4">
+                                Engineering with Curiosity & Conviction
+                            </h3>
+
+                            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-4">
+                                I am a passionate and results-driven frontend engineer and AI/ML enthusiast with a solid foundation across full-stack web development. I thrive in the intersection where <span className="text-amber-600 dark:text-amber-400 font-bold">intuitive interaction design</span> meets <span className="text-slate-900 dark:text-white font-bold">rigorous software architecture</span>.
+                            </p>
+
+                            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                                Whether building high-concurrency public transit applications with contactless NFC payments, architecting bespoke luxury e-commerce platforms, or engineering corporate learning ecosystems, my objective is always the same: <span className="underline decoration-amber-500 decoration-2 font-semibold text-slate-900 dark:text-white">deliver resilient, zero-friction software that solves real-world human needs</span>.
                             </p>
                         </motion.div>
 
-                        {/* 4 smaller cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+                        {/* 4 Core Pillars */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                             {[
                                 {
                                     icon: Lightbulb,
                                     title: "Creative Problem Solving",
-                                    desc: "Turning complex challenges into elegant solutions",
-                                    color: "text-purple-600",
-                                    bg: "bg-purple-100"
+                                    desc: "Deconstructing complex business ambiguity into clean, componentized solutions.",
+                                    color: "text-amber-500",
+                                    bg: "bg-amber-500/10"
                                 },
                                 {
                                     icon: Users,
-                                    title: "User-Centric Design",
-                                    desc: "Building experiences that users love and remember",
-                                    color: "text-green-600",
-                                    bg: "bg-green-100"
+                                    title: "User-Centric Empathy",
+                                    desc: "Designing experiences that feel natural, accessible, and deeply memorable.",
+                                    color: "text-emerald-500",
+                                    bg: "bg-emerald-500/10"
                                 },
                                 {
                                     icon: Zap,
-                                    title: "High Performance",
-                                    desc: "Optimizing applications for lightning-fast speeds",
-                                    color: "text-blue-600",
-                                    bg: "bg-blue-100"
+                                    title: "Performance First",
+                                    desc: "Optimizing bundle sizes, edge runtimes, and critical rendering paths.",
+                                    color: "text-cyan-500",
+                                    bg: "bg-cyan-500/10"
                                 },
                                 {
-                                    icon: Layout,
-                                    title: "Scalable Architecture",
-                                    desc: "Designing systems that grow with your business",
-                                    color: "text-orange-600",
-                                    bg: "bg-orange-100"
+                                    icon: Shield,
+                                    title: "Production Resilience",
+                                    desc: "Strict TypeScript typing, testable abstractions, and long-term maintainability.",
+                                    color: "text-indigo-500",
+                                    bg: "bg-indigo-500/10"
                                 }
-                            ].map((card, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.1 * (idx + 1) }}
-                                    viewport={{ once: true }}
-                                    className="bg-white dark:bg-gray-900 rounded-[2rem] p-8 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col gap-5 hover:shadow-md transition-shadow group"
-                                >
-                                    <div className={`w-14 h-14 rounded-2xl ${card.bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                                        <card.icon className={card.color} size={28} strokeWidth={2} />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-xl font-bold text-black dark:text-white mb-2">{card.title}</h4>
-                                        <p className="text-gray-500 font-medium leading-relaxed max-w-[250px]">{card.desc}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
+                            ].map((card, idx) => {
+                                const Icon = card.icon;
+                                return (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.05 * (idx + 1) }}
+                                        viewport={{ once: true }}
+                                        className="p-5 rounded-2xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] shadow-sm flex flex-col justify-between group hover:border-amber-500/30 transition-all hover:-translate-y-0.5"
+                                    >
+                                        <div className={`w-9 h-9 rounded-xl ${card.bg} ${card.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
+                                            <Icon size={18} />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-sm font-bold text-slate-950 dark:text-white mb-1">
+                                                {card.title}
+                                            </h4>
+                                            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                                {card.desc}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
         </section>
     );
