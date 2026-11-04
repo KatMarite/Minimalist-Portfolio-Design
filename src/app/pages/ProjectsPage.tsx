@@ -83,6 +83,14 @@ const PROJECTS = [
         tags: ["Next.js", "TypeScript", "Tailwind CSS", "CMS"],
         image: "/drmavis.jpg",
         link: "https://www.drmavismazhura.co.za/"
+    },
+    {
+        id: 11,
+        title: "Think Career Academy",
+        description: "An online learning platform dedicated to transforming industries through people. The academy offers professional development courses, career insights, and a structured sign-up and login experience to help learners and organisations grow.",
+        tags: ["Next.js", "TypeScript", "LMS", "Tailwind CSS"],
+        image: "/thinkcareeracademy.jpg",
+        link: "https://thinkcareeracademy.co.za/"
     }
 ];
 

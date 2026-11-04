@@ -248,6 +248,49 @@ export function FeaturedWork() {
                             </div>
                         </div>
                     </motion.div>
+
+                    {/* Think Career Academy - standalone wide card */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-800"
+                    >
+                        <div className="grid md:grid-cols-2 gap-8 p-8 lg:p-12">
+                            <div className="relative">
+                                <div
+                                    className="absolute inset-0 opacity-30"
+                                    style={{
+                                        backgroundImage: `radial-gradient(circle, #e5e5e5 1px, transparent 1px)`,
+                                        backgroundSize: '20px 20px'
+                                    }}
+                                />
+                                <div className="relative overflow-hidden rounded-[1.5rem]">
+                                    <ImageWithFallback
+                                        src="/thinkcareeracademy.jpg"
+                                        alt="Think Career Academy"
+                                        className="w-full h-auto shadow-lg hover:scale-105 transition-transform duration-500"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-col justify-center">
+                                <h3 className="text-3xl font-bold text-black dark:text-white mb-4 hover:text-blue-600 transition-colors cursor-pointer">Think Career Academy</h3>
+                                <p className="text-gray-600 dark:text-gray-400 text-lg mb-6 leading-relaxed">
+                                    An online learning platform dedicated to transforming industries through people. The academy offers professional development courses, career insights, and a structured sign-up and login experience to help learners and organisations grow.
+                                </p>
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    <span className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors cursor-default">Next.js</span>
+                                    <span className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors cursor-default">TypeScript</span>
+                                    <span className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors cursor-default">LMS</span>
+                                    <span className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors cursor-default">Tailwind CSS</span>
+                                </div>
+                                <a href="https://thinkcareeracademy.co.za/" target="_blank" rel="noopener noreferrer" className="self-start bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors hover:shadow-lg hover:-translate-y-1 inline-block">
+                                    See Project
+                                </a>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
 
                 <div className="mt-16 flex justify-center">
