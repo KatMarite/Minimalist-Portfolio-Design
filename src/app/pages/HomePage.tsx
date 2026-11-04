@@ -12,7 +12,7 @@ export function HomePage() {
         <main>
             <HeroWithCursor />
 
-            <AnimatedSection delay={0.1}>
+            <AnimatedSection delay={0.05} direction="up">
                 <ImpactMetrics />
             </AnimatedSection>
 
@@ -20,11 +20,11 @@ export function HomePage() {
                 <FeaturedWork />
             </AnimatedSection>
 
-            <AnimatedSection delay={0.05} direction="right">
+            <AnimatedSection delay={0.05} direction="up">
                 <Skills />
             </AnimatedSection>
 
-            <AnimatedSection delay={0.05} direction="left">
+            <AnimatedSection delay={0.05} direction="up">
                 <AboutMe />
             </AnimatedSection>
 
@@ -32,7 +32,7 @@ export function HomePage() {
                 <Certificates />
             </AnimatedSection>
 
-            <AnimatedSection delay={0.05} direction="right">
+            <AnimatedSection delay={0.05} direction="up">
                 <ContactForm />
             </AnimatedSection>
         </main>

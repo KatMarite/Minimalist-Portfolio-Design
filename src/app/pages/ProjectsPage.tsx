@@ -1,157 +1,252 @@
-import { ArrowRight } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { ArrowLeft, ArrowUpRight, Search, Sparkles, Filter, Layers } from 'lucide-react';
+import { Link } from 'react-router';
+import { motion, AnimatePresence } from 'motion/react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { ThreeHeroShape } from '../components/ThreeHeroShape';
-
-// Reusing the same project data to simulate a full portfolio list
-const PROJECTS = [
-    {
-        id: 1,
-        title: "Black Hair",
-        description: "An e-commerce and lifestyle platform dedicated to natural hair care for ethnic African hair. The site combines a retail experience for plant-based, nourishing hair products with educational resources to empower users on their healthy hair journeys.",
-        tags: ["React Native", "TypeScript", "Redux", "REST API", "Firebase"],
-        image: "/blk hair.jpg",
-        link: "https://blackhair.africa"
-    },
-    {
-        id: 2,
-        title: "Enashy's Business Solutions",
-        description: "A strategic marketing and brand consultancy specialising in experiential marketing, activations, PR, event production, and personal branding.",
-        tags: ["Next.js", "TypeScript", "Recharts"],
-        image: "/ebs.png",
-        link: "https://enashysbusinesssolutions.com/"
-    },
-    {
-        id: 3,
-        title: "Career Indaba",
-        description: "A multiplatform employment and skills network serving the African labor market. This digital-first platform bridges the gap between job seekers and industry leaders through an \"Opportunity Hub,\" career expos, and on-air coaching to drive sustainable economic growth.",
-        tags: ["React", "Stripe", "GraphQL"],
-        image: "/carindaba.jpg",
-        link: "https://careerindaba.org/"
-    },
-    {
-        id: 4,
-        title: "Knit.cash",
-        description: "Automating the complex, manual financial workflows that keep bursars and finance managers at their desks late into the night.",
-        tags: ["Vue.js", "Node.js", "MongoDB"],
-        image: "/knit.png",
-        link: "https://knit.cash"
-    },
-    {
-        id: 5,
-        title: "Think Career RPO",
-        description: "A strategic Recruitment Process Outsourcing (RPO) and talent acquisition platform. It offers an end-to-end ecosystem for employers—including career assessments, pre-employment verification, and employer branding—designed to build resilient, high-performing workforces.",
-        tags: ["Python", "React", "OpenAI API", "FastAPI", "Redis"],
-        image: "/RPO.jpg",
-        link: "https://thinkcareerrpo.com/"
-    },
-    {
-        id: 6,
-        title: "South African Immunology Society",
-        description: "The digital home of the South African Immunology Society, a professional hub for scientists and clinicians. The platform facilitates collaboration on immunological research, provides exclusive member content, and hosts educational webinars to advance medical science in South Africa",
-        tags: ["Next.js", "Mapbox", "Prisma", "Supabase", "Cloudinary"],
-        image: "/saimmu.jpg",
-        link: "https://saimmunology.org.za/"
-    },
-    {
-        id: 7,
-        title: "Engagemint Labs",
-        description: "A full-service digital agency combining technology, creativity, and strategy to develop innovative software solutions and digital marketing experiences that help brands connect, businesses evolve, and ideas become reality.",
-        tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-        image: "/engagemint.jpg",
-        link: "https://engagemint-labs.vercel.app/"
-    },
-    {
-        id: 8,
-        title: "Designed by Barbz",
-        description: "A premium fashion e-commerce platform with a sleek UI/UX design. The store offers new arrivals, tops, bottoms, dresses, sets, and jackets, with a consultation booking feature — built around the philosophy that fashion is about the story you choose to tell.",
-        tags: ["Shopify", "UI/UX Design", "E-Commerce", "Figma"],
-        image: "/barbz.jpg",
-        link: "https://designedbybarbz.co.za/"
-    },
-    {
-        id: 9,
-        title: "Urban Pulse — TBS App",
-        description: "A next-gen transit app modernising daily commuting in Tshwane with seamless NFC payments, AI-driven route optimisation, and real-time fleet tracking — putting the future of public transport in commuters' hands.",
-        tags: ["React", "TypeScript", "Cloudflare Workers", "NFC", "AI"],
-        image: "/urbanpulse.jpg",
-        link: "https://tbs-app.katlehomarite.workers.dev/"
-    },
-    {
-        id: 10,
-        title: "Dr. Mavis Mazhura",
-        description: "A professional website for a Leadership Psychologist and Behavioural Science Expert. The platform showcases keynotes, books, media, and services focused on developing sustainable leadership — helping organisations shift from burnout to aligned, influential performance.",
-        tags: ["Next.js", "TypeScript", "Tailwind CSS", "CMS"],
-        image: "/drmavis.jpg",
-        link: "https://www.drmavismazhura.co.za/"
-    },
-    {
-        id: 11,
-        title: "Think Career Academy",
-        description: "An online learning platform dedicated to transforming industries through people. The academy offers professional development courses, career insights, and a structured sign-up and login experience to help learners and organisations grow.",
-        tags: ["Next.js", "TypeScript", "LMS", "Tailwind CSS"],
-        image: "/thinkcareeracademy.jpg",
-        link: "https://thinkcareeracademy.co.za/"
-    }
-];
+import { PROJECTS, CATEGORIES, Project } from '../data/projectsData';
 
 export function ProjectsPage() {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<typeof CATEGORIES[number]>('All');
+
+    const filteredProjects = useMemo(() => {
+        return PROJECTS.filter((project) => {
+            const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory;
+            const query = searchQuery.toLowerCase().trim();
+            const matchesSearch = 
+                !query ||
+                project.title.toLowerCase().includes(query) ||
+                project.tagline.toLowerCase().includes(query) ||
+                project.description.toLowerCase().includes(query) ||
+                project.tags.some(tag => tag.toLowerCase().includes(query));
+
+            return matchesCategory && matchesSearch;
+        });
+    }, [searchQuery, selectedCategory]);
+
     return (
-        <main className="pt-32 pb-24 px-6 lg:px-12 bg-white dark:bg-[#030213] min-h-screen">
-            <div className="max-w-7xl mx-auto">
-                <header className="mb-16 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="flex-1">
-                        <h1 className="text-5xl md:text-6xl font-bold text-black dark:text-white mb-6">Archive <span className="text-gray-400">/</span> Projects</h1>
-                        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
-                            A collection of my recent work, featuring full-stack applications, interactive dashboards, and scalable web solutions.
+        <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-8 bg-[#fafafa] dark:bg-[#07080e] min-h-screen transition-colors duration-300">
+            <div className="max-w-6xl mx-auto">
+                
+                {/* Back to Home Button */}
+                <div className="mb-8">
+                    <Link
+                        to="/"
+                        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors py-2 px-3 rounded-full hover:bg-black/[0.04] dark:hover:bg-white/[0.05]"
+                    >
+                        <ArrowLeft size={16} />
+                        <span>Return to Overview</span>
+                    </Link>
+                </div>
+
+                {/* Hero Archive Header */}
+                <header className="mb-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-black/[0.06] dark:border-white/[0.08] pb-12">
+                    <div className="lg:col-span-7">
+                        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono mb-3">
+                            <Layers size={14} />
+                            Complete Engineering Index • 11 Projects
+                        </div>
+                        <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-4">
+                            Archive <span className="text-slate-300 dark:text-slate-700">/</span> Works
+                        </h1>
+                        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
+                            A comprehensive registry of full-stack platforms, smart mobility ecosystems, e-commerce storefronts, and research hubs built between 2023 and 2026.
                         </p>
                     </div>
-                    <div className="flex-1 w-full h-[300px] md:h-[400px]">
+
+                    <div className="lg:col-span-5 h-[260px] sm:h-[320px] rounded-3xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] overflow-hidden p-2 relative shadow-sm">
+                        <div className="absolute top-3 left-4 z-10 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                            Interactive 3D Geometric Knot
+                        </div>
                         <ThreeHeroShape />
                     </div>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {PROJECTS.map((project) => (
-                        <div key={project.id} className="group flex flex-col bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[2rem] overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                            {/* Image Container */}
-                            <div className="relative h-64 overflow-hidden bg-gray-100">
-                                <ImageWithFallback
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                                <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-                            </div>
+                {/* Search & Category Filter Controls */}
+                <div className="mb-10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+                    
+                    {/* Category Filter Pills */}
+                    <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+                        {CATEGORIES.map((category) => {
+                            const isSelected = selectedCategory === category;
+                            const count = category === 'All'
+                                ? PROJECTS.length
+                                : PROJECTS.filter(p => p.category === category).length;
 
-                            {/* Content */}
-                            <div className="p-8 flex flex-col flex-1">
-                                <h3 className="text-2xl font-bold text-black dark:text-white mb-3">{project.title}</h3>
-                                <p className="text-gray-600 dark:text-gray-400 mb-6 flex-1 text-base leading-relaxed">
-                                    {project.description}
-                                </p>
+                            return (
+                                <button
+                                    key={category}
+                                    onClick={() => setSelectedCategory(category)}
+                                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                                        isSelected
+                                            ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 shadow-sm'
+                                            : 'bg-white dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
+                                    }`}
+                                >
+                                    <span>{category}</span>
+                                    <span className="text-[10px] opacity-70 font-mono">({count})</span>
+                                </button>
+                            );
+                        })}
+                    </div>
 
-                                {/* Tags */}
-                                <div className="flex flex-wrap gap-2 mb-8">
-                                    {project.tags.map((tag) => (
-                                        <span key={tag} className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
-                                            {tag}
-                                        </span>
-                                    ))}
+                    {/* Live Search Input */}
+                    <div className="relative w-full md:w-72">
+                        <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Filter by keyword or stack..."
+                            className="w-full pl-9 pr-4 py-2 rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#0c0f1a] text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all"
+                        />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
+                            >
+                                Clear
+                            </button>
+                        )}
+                    </div>
+
+                </div>
+
+                {/* Results Count Bar */}
+                <div className="mb-6 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                    <span>
+                        Showing <strong className="text-slate-900 dark:text-white">{filteredProjects.length}</strong> of {PROJECTS.length} indexed projects
+                    </span>
+                    {searchQuery && (
+                        <span>
+                            Filtered by query: <span className="font-mono text-amber-500">"{searchQuery}"</span>
+                        </span>
+                    )}
+                </div>
+
+                {/* Projects Bento Grid */}
+                <motion.div
+                    layout
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                >
+                    <AnimatePresence>
+                        {filteredProjects.map((project) => (
+                            <motion.div
+                                layout
+                                key={project.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.4 }}
+                                className="group rounded-[28px] bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-amber-500/40 dark:hover:border-amber-500/40 transition-all duration-300 hover:-translate-y-1.5"
+                            >
+                                <div>
+                                    {/* Image Container with Aspect Ratio */}
+                                    <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+                                        <ImageWithFallback
+                                            src={project.image}
+                                            alt={project.title}
+                                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-600 ease-out"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                                            <span className="text-white text-xs font-semibold flex items-center gap-1.5">
+                                                Open live site <ArrowUpRight size={16} />
+                                            </span>
+                                        </div>
+                                        {/* Top Badges */}
+                                        <div className="absolute top-4 left-4 flex items-center gap-2">
+                                            <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider font-mono">
+                                                {project.badge || project.category}
+                                            </span>
+                                        </div>
+                                        <div className="absolute top-4 right-4">
+                                            <span className="px-2.5 py-1 rounded-full bg-white/90 dark:bg-black/70 backdrop-blur-md text-slate-900 dark:text-white text-xs font-bold font-mono">
+                                                {project.year || '2025'}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Content Block */}
+                                    <div className="p-6 sm:p-8">
+                                        <div className="flex items-center justify-between gap-4 mb-1">
+                                            <h3 className="text-2xl font-bold text-slate-950 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                                                {project.title}
+                                            </h3>
+                                        </div>
+
+                                        <p className="text-xs font-semibold text-amber-600 dark:text-amber-400/90 mb-3 font-mono">
+                                            {project.tagline}
+                                        </p>
+
+                                        <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                                            {project.description}
+                                        </p>
+
+                                        {/* Architectural highlights */}
+                                        <div className="space-y-1.5 mb-6">
+                                            {project.highlights.map((item, idx) => (
+                                                <div key={idx} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                                                    <span>{item}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Tags */}
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {project.tags.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300 border border-black/[0.04] dark:border-white/[0.06]"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
 
-                                {/* Link */}
-                                <a
-                                    href={project.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-800 transition-colors mt-auto"
-                                >
-                                    View Project <ArrowRight size={18} />
-                                </a>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                                {/* Link Footer */}
+                                <div className="p-6 sm:p-8 pt-0 flex items-center justify-between border-t border-black/[0.04] dark:border-white/[0.05] mt-2">
+                                    <span className="text-xs font-medium text-slate-400">
+                                        Category: {project.category}
+                                    </span>
+
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-950 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                                    >
+                                        <span>Visit Live Platform</span>
+                                        <ArrowUpRight size={16} />
+                                    </a>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
+
+                {/* Empty State */}
+                {filteredProjects.length === 0 && (
+                    <div className="py-20 text-center rounded-3xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] p-8">
+                        <Sparkles size={32} className="mx-auto text-amber-500 mb-3 opacity-60" />
+                        <h4 className="text-lg font-bold text-slate-950 dark:text-white mb-1">
+                            No projects matched your criteria
+                        </h4>
+                        <p className="text-sm text-slate-500 mb-4">
+                            Try adjusting your search query or selecting a different category.
+                        </p>
+                        <button
+                            onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
+                            className="px-4 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-950 text-xs font-bold"
+                        >
+                            Reset Filters
+                        </button>
+                    </div>
+                )}
+
             </div>
         </main>
     );
