@@ -73,13 +73,13 @@ export function AboutMe() {
                             </div>
 
                             {/* Location & Time bar */}
-                            <div className="p-3 mt-1 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                            <div className="p-3 mt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 dark:text-slate-400">
                                 <div className="flex items-center gap-1.5 font-medium">
-                                    <MapPin size={14} className="text-amber-500" />
+                                    <MapPin size={14} className="text-amber-500 shrink-0" />
                                     <span>Johannesburg, SA</span>
                                 </div>
                                 <div className="flex items-center gap-1.5 font-mono">
-                                    <Clock size={14} className="text-slate-400" />
+                                    <Clock size={14} className="text-slate-400 shrink-0" />
                                     <span>{currentTime || 'Local Time'} (SAST)</span>
                                 </div>
                             </div>

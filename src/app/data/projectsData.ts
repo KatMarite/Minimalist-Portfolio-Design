@@ -164,3 +164,4 @@ export const PROJECTS: Project[] = [
     badge: "Scientific Hub"
   }
 ];
+
