@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router';
-import { ArrowUpRight, ArrowRight, ExternalLink, Sparkles, Layers, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Sparkles, CheckCircle2, Layers } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { PROJECTS, CATEGORIES } from '../data/projectsData';
 
@@ -12,11 +12,10 @@ export function FeaturedWork() {
         ? PROJECTS
         : PROJECTS.filter(project => project.category === selectedCategory);
 
-    // The hero spotlight project
-    const spotlightProject = PROJECTS.find(p => p.id === 1) || PROJECTS[0];
-    
-    // Remaining projects for the grid
-    const gridProjects = filteredProjects;
+    // Limit to the first 3 projects before the explore full archive button
+    const featuredProjects = filteredProjects.slice(0, 3);
+    const spotlightProject = featuredProjects[0];
+    const gridProjects = featuredProjects.slice(1, 3);
 
     return (
         <section id="work" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#fafafa] dark:bg-[#07080e] relative transition-colors duration-300">
@@ -29,7 +28,7 @@ export function FeaturedWork() {
                     <div>
                         <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono mb-2">
                             <Sparkles size={14} />
-                            Selected Portfolio • 11 Projects
+                            Featured Projects • 3 of {PROJECTS.length} Selected
                         </div>
                         <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-950 dark:text-white tracking-tight">
                             Featured Craft & Code
@@ -37,7 +36,7 @@ export function FeaturedWork() {
                     </div>
 
                     <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-md">
-                        Real-world platforms, smart mobility systems, and high-conversion e-commerce stores designed and engineered for scale.
+                        A curated look at recent production platforms, smart mobility systems, and high-impact digital products.
                     </p>
                 </div>
 
@@ -72,18 +71,18 @@ export function FeaturedWork() {
                     })}
                 </div>
 
-                {/* Spotlight Card - If "All" or "Web Apps & Platforms" is selected */}
-                {(selectedCategory === 'All' || selectedCategory === spotlightProject.category) && (
+                {/* Project 1: Flagship Spotlight Card */}
+                {spotlightProject && (
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        className="mb-12 rounded-[28px] overflow-hidden bg-white dark:bg-[#0c0f1a] border border-black/[0.08] dark:border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] group relative"
+                        className="mb-8 rounded-[28px] overflow-hidden bg-white dark:bg-[#0c0f1a] border border-black/[0.08] dark:border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] group relative"
                     >
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                             {/* Left Image Showcase (7 cols) */}
-                            <div className="lg:col-span-7 relative overflow-hidden bg-slate-100 dark:bg-slate-900/50 min-h-[320px] sm:min-h-[420px]">
+                            <div className="lg:col-span-7 relative overflow-hidden bg-slate-100 dark:bg-slate-900/50 min-h-[300px] sm:min-h-[400px]">
                                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 lg:opacity-0 group-hover:opacity-20 transition-opacity"></div>
                                 <ImageWithFallback
                                     src={spotlightProject.image}
@@ -165,86 +164,80 @@ export function FeaturedWork() {
                     </motion.div>
                 )}
 
-                {/* Asymmetric Bento Projects Grid */}
-                <motion.div 
-                    layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                >
-                    <AnimatePresence>
-                        {gridProjects
-                            .filter(p => selectedCategory === 'All' ? p.id !== 1 : true)
-                            .map((project, index) => (
+                {/* Projects 2 & 3: Two Column Grid */}
+                {gridProjects.length > 0 && (
+                    <motion.div 
+                        layout
+                        className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14"
+                    >
+                        <AnimatePresence>
+                            {gridProjects.map((project, index) => (
                                 <motion.div
                                     layout
                                     key={project.id}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                                    className="group rounded-3xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-amber-500/40 dark:hover:border-amber-500/40 transition-all duration-300 hover:-translate-y-1.5"
+                                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                                    className="group rounded-[28px] bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-amber-500/40 dark:hover:border-amber-500/40 transition-all duration-300 hover:-translate-y-1.5"
                                 >
                                     <div>
                                         {/* Image Container with Aspect Ratio */}
-                                        <div className="relative h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+                                        <div className="relative h-60 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
                                             <ImageWithFallback
                                                 src={project.image}
                                                 alt={project.title}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                                <span className="text-white text-xs font-semibold flex items-center gap-1">
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5">
+                                                <span className="text-white text-xs font-semibold flex items-center gap-1.5">
                                                     Visit {project.title} <ArrowUpRight size={14} />
                                                 </span>
                                             </div>
-                                            {/* Badge Top Corner */}
-                                            <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                                                <span className="px-2.5 py-0.5 rounded-full bg-slate-950/70 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider font-mono">
+                                            {/* Top Corner Badges */}
+                                            <div className="absolute top-4 left-4 flex items-center gap-1.5">
+                                                <span className="px-2.5 py-1 rounded-full bg-slate-950/70 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider font-mono">
                                                     {project.badge || project.category}
                                                 </span>
                                             </div>
-                                            <div className="absolute top-3 right-3">
-                                                <span className="px-2 py-0.5 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-md text-slate-800 dark:text-slate-200 text-[10px] font-bold font-mono">
+                                            <div className="absolute top-4 right-4">
+                                                <span className="px-2.5 py-1 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-md text-slate-800 dark:text-slate-200 text-[10px] font-bold font-mono">
                                                     {project.year || '2025'}
                                                 </span>
                                             </div>
                                         </div>
 
                                         {/* Project Content Body */}
-                                        <div className="p-6">
-                                            <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                                        <div className="p-6 sm:p-7">
+                                            <h3 className="text-2xl font-bold text-slate-950 dark:text-white mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                                                 {project.title}
                                             </h3>
 
-                                            <p className="text-xs font-semibold text-amber-600 dark:text-amber-400/90 mb-3">
+                                            <p className="text-xs font-semibold text-amber-600 dark:text-amber-400/90 mb-3 font-mono">
                                                 {project.tagline}
                                             </p>
 
-                                            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+                                            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-5 line-clamp-3">
                                                 {project.description}
                                             </p>
 
                                             {/* Tech Stack Chips */}
-                                            <div className="flex flex-wrap gap-1 mb-2">
-                                                {project.tags.slice(0, 4).map((tag) => (
+                                            <div className="flex flex-wrap gap-1.5 mb-2">
+                                                {project.tags.map((tag) => (
                                                     <span
                                                         key={tag}
-                                                        className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300"
+                                                        className="px-2.5 py-0.5 rounded text-[10px] font-semibold bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300"
                                                     >
                                                         {tag}
                                                     </span>
                                                 ))}
-                                                {project.tags.length > 4 && (
-                                                    <span className="px-1.5 py-0.5 rounded text-[10px] font-medium text-slate-400">
-                                                        +{project.tags.length - 4}
-                                                    </span>
-                                                )}
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Action Footer */}
-                                    <div className="px-6 pb-6 pt-2 border-t border-black/[0.04] dark:border-white/[0.05] flex items-center justify-between">
-                                        <span className="text-[11px] font-medium text-slate-400">
+                                    <div className="px-6 sm:px-7 pb-6 pt-3 border-t border-black/[0.04] dark:border-white/[0.05] flex items-center justify-between">
+                                        <span className="text-xs font-medium text-slate-400">
                                             {project.category}
                                         </span>
 
@@ -252,7 +245,7 @@ export function FeaturedWork() {
                                             href={project.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors group/link"
+                                            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors group/link"
                                         >
                                             <span>Visit Live</span>
                                             <ArrowUpRight size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
@@ -260,17 +253,30 @@ export function FeaturedWork() {
                                     </div>
                                 </motion.div>
                             ))}
-                    </AnimatePresence>
-                </motion.div>
+                        </AnimatePresence>
+                    </motion.div>
+                )}
 
-                {/* View Archive CTA */}
-                <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+                {/* Explore Full Archive CTA Section */}
+                <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] shadow-sm text-center flex flex-col items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
+                        <Layers size={24} />
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white mb-2">
+                        Looking for more work?
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-md mb-6 leading-relaxed">
+                        Explore the complete archive of {PROJECTS.length} platforms including fintech engines, talent ecosystems, and clinical research portals.
+                    </p>
+
                     <Link
                         to="/projects"
                         onClick={() => window.scrollTo(0, 0)}
-                        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white dark:bg-[#0e111d] border border-black/[0.08] dark:border-white/[0.1] text-slate-900 dark:text-white font-bold text-sm hover:border-amber-500 hover:text-amber-600 dark:hover:text-amber-400 hover:shadow-lg transition-all hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 font-bold text-sm hover:bg-amber-600 dark:hover:bg-amber-400 transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
                     >
-                        <span>Explore Full Archive (11 Projects)</span>
+                        <span>Explore Full Archive ({PROJECTS.length} Projects)</span>
                         <ArrowRight size={16} />
                     </Link>
                 </div>
