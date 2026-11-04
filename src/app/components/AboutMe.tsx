@@ -1,28 +1,7 @@
 import { motion } from 'motion/react';
-import { Rocket, Code2, Lightbulb, Users, Zap, Layout, MapPin, Clock, HeartHandshake, Shield, Sparkles } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Rocket, Code2, Lightbulb, Users, Zap, Sparkles, Shield, CheckCircle2 } from 'lucide-react';
 
 export function AboutMe() {
-    const [currentTime, setCurrentTime] = useState("");
-
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            // Format for Johannesburg (GMT+2)
-            const timeString = now.toLocaleTimeString('en-US', {
-                timeZone: 'Africa/Johannesburg',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
-            setCurrentTime(timeString);
-        };
-
-        updateTime();
-        const interval = setInterval(updateTime, 1000);
-        return () => clearInterval(interval);
-    }, []);
-
     return (
         <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#fafafa] dark:bg-[#07080e] relative transition-colors duration-300">
             <div className="max-w-6xl mx-auto">
@@ -47,7 +26,7 @@ export function AboutMe() {
                 {/* Bento Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                     
-                    {/* Left Column (5 cols) - Portrait & Live Location Bento */}
+                    {/* Left Column (5 cols) - Portrait & Status Bento */}
                     <div className="lg:col-span-5 flex flex-col gap-6">
                         
                         {/* Portrait Card */}
@@ -72,16 +51,18 @@ export function AboutMe() {
                                 </div>
                             </div>
 
-                            {/* Location & Time bar */}
+                            {/* Status & Focus Bar */}
                             <div className="p-3 mt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 dark:text-slate-400">
-                                <div className="flex items-center gap-1.5 font-medium">
-                                    <MapPin size={14} className="text-amber-500 shrink-0" />
-                                    <span>Johannesburg, SA</span>
+                                <div className="flex items-center gap-2 font-medium">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                    </span>
+                                    <span className="text-slate-900 dark:text-white font-semibold">Available for Projects</span>
                                 </div>
-                                <div className="flex items-center gap-1.5 font-mono">
-                                    <Clock size={14} className="text-slate-400 shrink-0" />
-                                    <span>{currentTime || 'Local Time'} (SAST)</span>
-                                </div>
+                                <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full font-semibold">
+                                    Full-Stack & Frontend
+                                </span>
                             </div>
                         </motion.div>
 

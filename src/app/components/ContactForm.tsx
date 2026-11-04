@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Send, Check, Copy, Sparkles, MessageSquare, ArrowUpRight, Clock, MapPin, CheckCircle2 } from 'lucide-react';
+import { Mail, Send, Sparkles, MessageSquare, Clock, CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
 const PROJECT_TYPES = [
@@ -18,13 +18,6 @@ export function ContactForm() {
         message: ''
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-    const [copiedEmail, setCopiedEmail] = useState(false);
-
-    const handleCopyEmail = () => {
-        navigator.clipboard.writeText("katlehomarite@gmail.com");
-        setCopiedEmail(true);
-        setTimeout(() => setCopiedEmail(false), 2500);
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -89,44 +82,34 @@ export function ContactForm() {
                     <div className="lg:col-span-5 flex flex-col gap-6">
                         <div className="p-8 rounded-3xl bg-white dark:bg-[#0c0f1a] border border-black/[0.06] dark:border-white/[0.08] shadow-sm">
                             <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-2">
-                                Direct Contact & Channels
+                                Direct Inquiries & Channels
                             </h3>
                             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                                Reach out directly via email or connect through my professional developer profiles.
+                                Reach out directly through the form or connect via my developer profiles.
                             </p>
 
                             <div className="space-y-4 mb-6">
-                                {/* Email Row */}
-                                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-                                            <Mail size={18} />
-                                        </div>
-                                        <div>
-                                            <span className="text-[11px] text-slate-400 block font-medium">Email Address</span>
-                                            <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white select-all">
-                                                katlehomarite@gmail.com
-                                            </span>
-                                        </div>
+                                {/* Message Channel Row */}
+                                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                                        <Mail size={18} />
                                     </div>
-
-                                    <button
-                                        onClick={handleCopyEmail}
-                                        className="p-2 rounded-lg bg-white dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-300 transition-colors"
-                                        title="Copy email to clipboard"
-                                    >
-                                        {copiedEmail ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
-                                    </button>
+                                    <div>
+                                        <span className="text-[11px] text-slate-400 block font-medium">Inquiry Channel</span>
+                                        <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                                            Send a message via the form
+                                        </span>
+                                    </div>
                                 </div>
 
-                                {/* Location & Response Time */}
+                                {/* Turnaround & Availability */}
                                 <div className="grid grid-cols-2 gap-3 text-xs">
                                     <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06]">
                                         <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-semibold mb-1">
-                                            <MapPin size={14} /> Location
+                                            <Sparkles size={14} /> Turnaround
                                         </div>
                                         <span className="text-slate-700 dark:text-slate-300 font-medium">
-                                            Johannesburg, SA (GMT+2)
+                                            Reply within 24h
                                         </span>
                                     </div>
 

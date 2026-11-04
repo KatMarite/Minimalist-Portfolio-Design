@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useMotionTemplate } from 'motion/react';
-import { ArrowRight, Copy, Check, Terminal, Sparkles, Code2, Cpu, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Mail, Terminal, Sparkles, Code2, Cpu, ShieldCheck } from 'lucide-react';
 import { ThreeHeroBackground } from './ThreeHeroBackground';
 
 export function HeroWithCursor() {
@@ -8,7 +8,6 @@ export function HeroWithCursor() {
   const heroRef = useRef<HTMLElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: -1000, y: -1000 });
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  const [copiedEmail, setCopiedEmail] = useState(false);
   const [activeTab, setActiveTab] = useState<'config' | 'stack' | 'vitals'>('config');
 
   // Mouse motion values for silky smooth reactive glow
@@ -73,12 +72,6 @@ export function HeroWithCursor() {
     };
   }, [mouseX, mouseY]);
 
-  const copyEmailToClipboard = () => {
-    navigator.clipboard.writeText("katlehomarite@gmail.com");
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2500);
-  };
-
   return (
     <section 
       ref={heroRef} 
@@ -129,7 +122,7 @@ export function HeroWithCursor() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span className="text-[10px] sm:text-xs font-semibold tracking-wide text-slate-700 dark:text-slate-300 truncate">
-              AVAILABLE FOR NEW PROJECTS • JOHANNESBURG & REMOTE
+              AVAILABLE FOR NEW PROJECTS • FULL-TIME & CONTRACT
             </span>
           </motion.div>
 
@@ -153,7 +146,7 @@ export function HeroWithCursor() {
             Hi, I'm <strong className="text-slate-900 dark:text-white font-semibold">Katleho Marite</strong> — Frontend Engineer & Creative Technologist. I specialize in building responsive, scalable platforms, high-conversion design systems, and fluid web experiences.
           </motion.p>
 
-          {/* Action CTAs & Quick Email Copy */}
+          {/* Action CTAs */}
           <motion.div
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3.5"
             initial={{ opacity: 0, y: 20 }}
@@ -169,21 +162,11 @@ export function HeroWithCursor() {
             </button>
 
             <button
-              onClick={copyEmailToClipboard}
-              className="w-full sm:w-auto px-5 py-3.5 rounded-full bg-white dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.1] text-slate-800 dark:text-slate-200 font-semibold text-sm hover:border-amber-500/50 hover:bg-slate-50 dark:hover:bg-white/[0.1] transition-all flex items-center justify-center gap-2 shadow-sm"
-              title="Click to copy email address"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.1] text-slate-800 dark:text-slate-200 font-semibold text-sm hover:border-amber-500/50 hover:bg-slate-50 dark:hover:bg-white/[0.1] transition-all flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5"
             >
-              {copiedEmail ? (
-                <>
-                  <Check size={16} className="text-emerald-500" />
-                  <span className="text-emerald-600 dark:text-emerald-400">Email Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy size={16} className="text-slate-400" />
-                  <span className="truncate">katlehomarite@gmail.com</span>
-                </>
-              )}
+              <Mail size={16} className="text-amber-500" />
+              <span>Get in Touch</span>
             </button>
           </motion.div>
 
@@ -280,7 +263,7 @@ export function HeroWithCursor() {
                     <div><span className="text-amber-600 dark:text-amber-400 font-bold">interface</span> <span className="text-cyan-600 dark:text-cyan-400">Engineer</span> {'{'}</div>
                     <div className="pl-3 sm:pl-4">name: <span className="text-emerald-600 dark:text-emerald-400">"Katleho Marite"</span>;</div>
                     <div className="pl-3 sm:pl-4">role: <span className="text-emerald-600 dark:text-emerald-400">"Frontend & Creative Tech"</span>;</div>
-                    <div className="pl-3 sm:pl-4">location: <span className="text-emerald-600 dark:text-emerald-400">"Johannesburg, SA"</span>;</div>
+                    <div className="pl-3 sm:pl-4">specialization: <span className="text-emerald-600 dark:text-emerald-400">"Architecture & UI Systems"</span>;</div>
                     <div className="pl-3 sm:pl-4">focus: <span className="text-emerald-600 dark:text-emerald-400">"Web Apps • Design Systems • 3D"</span>;</div>
                     <div className="pl-3 sm:pl-4">status: <span className="text-emerald-600 dark:text-emerald-400">"Available for Projects"</span>;</div>
                     <div>{'}'};</div>
